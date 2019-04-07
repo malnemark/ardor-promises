@@ -1,4 +1,4 @@
-
+// Ardor Interface
 import axios from 'axios';
 import qs from 'qs';
 import {secretPhraseToPublicKey,signTransactionBytes} from 'ardorjs';
@@ -9,6 +9,7 @@ const config = {
   }
 };
 
+//building the logo url
 export function getImageURL(nodeurl,fullHash) {
   const params = new URLSearchParams();
   const queryparams = {
@@ -25,7 +26,7 @@ export function getImageURL(nodeurl,fullHash) {
 }
 
 
-export function getTransactionBytes(nodeurl,query) {
+function getTransactionBytes(nodeurl,query) {
   console.log(nodeurl,query);
   return axios.post(nodeurl, qs.stringify(query), config).then(function(response) {
     return response.data;
@@ -33,7 +34,8 @@ export function getTransactionBytes(nodeurl,query) {
 }
 
 
-export function ardorGetIgnisBalance(nodeurl,account){
+//Account balance
+export function getIgnisBalance(nodeurl,account){
   return axios.get(nodeurl,{
     params: {
       requestType:"getBalance",
@@ -46,7 +48,7 @@ export function ardorGetIgnisBalance(nodeurl,account){
   });
 }
 
-export function ardorGetAccountCurrentAskOrders(nodeurl,account) {
+export function getAccountCurrentAskOrders(nodeurl,account) {
   return axios.get(nodeurl, {
         params: {
           requestType:"getAccountCurrentAskOrders",
@@ -59,7 +61,7 @@ export function ardorGetAccountCurrentAskOrders(nodeurl,account) {
       });
   }
 
-export function ardorGetAccountCurrentBidOrders(nodeurl,account) {
+export function getAccountCurrentBidOrders(nodeurl,account) {
   return axios.get(nodeurl, {
         params: {
           requestType:"getAccountCurrentBidOrders",
@@ -72,7 +74,7 @@ export function ardorGetAccountCurrentBidOrders(nodeurl,account) {
       });
   }
 
-export function ardorGetAskOrders(nodeurl,asset) {
+export function getAskOrders(nodeurl,asset) {
   return axios.get(nodeurl, {
         params: {
           requestType:"getAskOrders",
@@ -86,7 +88,7 @@ export function ardorGetAskOrders(nodeurl,asset) {
   }
 
 
-export function ardorGetBidOrders(nodeurl,asset) {
+export function getBidOrders(nodeurl,asset) {
   return axios.get(nodeurl, {
         params: {
           requestType:"getBidOrders",
@@ -99,7 +101,7 @@ export function ardorGetBidOrders(nodeurl,asset) {
       });
   }
 
-export function ardorGetAssetsByIssuer(nodeurl,account) {
+export function getAssetsByIssuer(nodeurl,account) {
   return axios.get(nodeurl, {
         params: {
           requestType:"getAssetsByIssuer",
@@ -112,7 +114,7 @@ export function ardorGetAssetsByIssuer(nodeurl,account) {
   }
 
 
-export function ardorGetAccountAssets(nodeurl,account) {
+export function getAccountAssets(nodeurl,account) {
   return axios.get(nodeurl, {
       params: {
         requestType:"getAccountAssets",
@@ -125,7 +127,7 @@ export function ardorGetAccountAssets(nodeurl,account) {
     })
   }
 
-export function ardorGetAccountCurrencies(nodeurl,account,currency) {
+export function getAccountCurrencies(nodeurl,account,currency) {
   return axios.get(nodeurl, {
       params: {
         requestType:"getAccountCurrencies",
@@ -138,7 +140,7 @@ export function ardorGetAccountCurrencies(nodeurl,account,currency) {
     })
   }
 
-export function getAccount(nodeurl,accountRs){
+function getAccount(nodeurl,accountRs){
   return axios.get(nodeurl, {
     params: {
       requestType:"getAccount",
@@ -151,7 +153,7 @@ export function getAccount(nodeurl,accountRs){
 }
 
 
-export function sendIgnis(nodeurl, amountNQT, recipient, passPhrase, message, messagePrunable=true){
+function sendIgnis(nodeurl, amountNQT, recipient, passPhrase, message, messagePrunable=true){
   console.log('sendIgnis()');
   const publicKey = secretPhraseToPublicKey(passPhrase);
   var query = {
@@ -199,7 +201,7 @@ export function sendIgnis(nodeurl, amountNQT, recipient, passPhrase, message, me
   }
 
 
-export function transferCurrency(nodeurl, currency, unitsQNT, recipient, passPhrase, message="", messagePrunable=true){
+function transferCurrency(nodeurl, currency, unitsQNT, recipient, passPhrase, message="", messagePrunable=true){
   console.log('transferCurrency()');
   const publicKey = secretPhraseToPublicKey(passPhrase);
   var query = {
@@ -247,7 +249,7 @@ export function transferCurrency(nodeurl, currency, unitsQNT, recipient, passPhr
           });
   }
 
-export function getAsset(nodeurl,asset){
+function getAsset(nodeurl,asset){
   return axios.get(nodeurl, {
     params: {
       requestType:"getAsset",
@@ -259,7 +261,7 @@ export function getAsset(nodeurl,asset){
   })
 }
 
-export function getCurrency(nodeurl,currency){
+function getCurrency(nodeurl,currency){
   return axios.get(nodeurl, {
     params: {
       requestType:"getCurrency",
@@ -271,7 +273,7 @@ export function getCurrency(nodeurl,currency){
   })
 }
 
-export function transferAsset(nodeurl,asset,quantityQNT,recipient,passPhrase,message='',messagePrunable=true) {
+function transferAsset(nodeurl,asset,quantityQNT,recipient,passPhrase,message='',messagePrunable=true) {
     console.log('transferAsset(): '+asset);
     console.log('get publicKey');
     const publicKey = secretPhraseToPublicKey(passPhrase);
@@ -321,7 +323,7 @@ export function transferAsset(nodeurl,asset,quantityQNT,recipient,passPhrase,mes
     });
 }
 
-export function getBlockchainTransactions(nodeurl,chain,account,executedOnly,timestamp) {
+function getBlockchainTransactions(nodeurl,chain,account,executedOnly,timestamp) {
   return axios.get(nodeurl, {
     params: {
       requestType:"getBlockchainTransactions",
@@ -336,7 +338,7 @@ export function getBlockchainTransactions(nodeurl,chain,account,executedOnly,tim
   })
 }
 
-export function getUnconfirmedTransactions(nodeurl,chain,account,type,subtype) {
+function getUnconfirmedTransactions(nodeurl,chain,account,type,subtype) {
   return axios.get(nodeurl, {
     params: {
       requestType:"getUnconfirmedTransactions",
@@ -351,7 +353,7 @@ export function getUnconfirmedTransactions(nodeurl,chain,account,type,subtype) {
   })
 }
 
-export function getConstants(nodeurl){
+function getConstants(nodeurl){
   return axios.get(nodeurl, {
     params: {
       requestType:"getConstants"
@@ -362,7 +364,7 @@ export function getConstants(nodeurl){
   })
 }
 
-export function getBlockchainStatus(nodeurl){
+function getBlockchainStatus(nodeurl){
   return axios.get(nodeurl, {
     params: {
       requestType:"getBlockchainStatus"
@@ -373,3 +375,6 @@ export function getBlockchainStatus(nodeurl){
   });
 }
 
+
+export {getTransactionBytes, getConstants, sendIgnis, transferCurrency, transferAsset, getAccount, getAsset, getCurrency,
+        getBlockchainStatus, getBlockchainTransactions, getUnconfirmedTransactions};
